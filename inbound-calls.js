@@ -102,6 +102,9 @@ export function registerInboundRoutes(fastify) {
                 streamSid = data.start.streamSid;
                 console.log(`[Twilio] Stream started with ID: ${streamSid}`);
                 break;
+              case "connected":
+                console.log("[Twilio] Connection established.");
+                break;
               case "media":
                 // if (elevenLabsWs && elevenLabsWs.readyState === WebSocket.OPEN) {
                 //   const audioMessage = {
