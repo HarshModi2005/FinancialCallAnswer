@@ -4,6 +4,16 @@ import fastifyFormBody from "@fastify/formbody";
 import fastifyWs from "@fastify/websocket";
 import { registerInboundRoutes } from './inbound-calls.js';
 
+import Pusher from "pusher";
+
+const pusher = new Pusher({
+  appId: "1943029",
+  key: "0e35b2b61a995822dd68",
+  secret: "208b7d83b141bdff87f2",
+  cluster: "us2",
+  useTLS: true
+});
+
 
 // Load environment variables from .env file
 dotenv.config();
