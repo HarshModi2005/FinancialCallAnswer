@@ -20,7 +20,7 @@ def create_stock_price_agent():
             "conversation_config": {
                 "agent": {
                     "prompt": {
-                        "prompt": "You provide real-time stock prices using Alpha Vantage API.",
+                        "prompt": "You provide real-time stock prices and news using Alpha Vantage API.",
                         "llm": "gemini-1.5-pro",
                         "temperature": 0.7,
                         "max_tokens": 512,
@@ -41,13 +41,36 @@ def create_stock_price_agent():
                                         "required": ["function", "symbol", "apikey"]
                                     },
                                     "fixed_query_params": {
-                                        "apikey": ALPHA_VANTAGE_API_KEY  # Explicitly set API key
+                                        "apikey": ALPHA_VANTAGE_API_KEY
+                                    }
+                                }
+                            },
+                            {
+                                "type": "webhook",
+                                "name": "get_stock_news",
+                                "description": "Fetches stock-related news.",
+                                "api_schema": {
+                                    "url": "https://www.alphavantage.co/query",
+                                    "method": "GET",
+                                    "query_params_schema": {
+                                        "properties": {
+                                            "function": {"type": "string", "description": "API function (NEWS_SENTIMENT)"},
+                                            "tickers": {"type": "string", "description": "Comma-separated stock symbols"},
+                                            "topics": {"type": "string", "description": "Comma-separated news topics"},
+                                            "limit": {"type": "integer", "description": "Number of news items to return"},
+                                            "apikey": {"type": "string", "description": "Alpha Vantage API key", "default": ALPHA_VANTAGE_API_KEY}
+                                        },
+                                        "required": ["function", "apikey"]
+                                    },
+                                    "fixed_query_params": {
+                                        "function": "NEWS_SENTIMENT",
+                                        "apikey": ALPHA_VANTAGE_API_KEY
                                     }
                                 }
                             }
                         ]
                     },
-                    "first_message": "Hi! I can fetch real-time stock prices. Which stock symbol do you need?",
+                    "first_message": "Hi! I can fetch real-time stock prices and news. What stock symbol do you need?",
                     "language": "en"
                 },
                 "asr": {
