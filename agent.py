@@ -1,16 +1,23 @@
 import requests
 import os
+from dotenv import load_dotenv
 
-# Load API key securely from environment variables
-ELEVENLABS_API_KEY = "sk_0520cc9cadbba16670ec7525304c16614bf2f030bd52424d"
+# Load environment variables from .env file
+load_dotenv()
 
-# Ensure the API key is available
+# Retrieve API keys from environment variables
+ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
+ALPHA_VANTAGE_API_KEY = os.getenv("ALPHA_VANTAGE_API_KEY")
+
+# Ensure the API keys are available
 if not ELEVENLABS_API_KEY:
-    raise ValueError("API Key is missing. Set ELEVENLABS_API_KEY as an environment variable.")
+    raise ValueError("ElevenLabs API Key is missing. Set ELEVENLABS_API_KEY in your environment variables.")
+if not ALPHA_VANTAGE_API_KEY:
+    raise ValueError("Alpha Vantage API Key is missing. Set ALPHA_VANTAGE_API_KEY in your environment variables.")
 
 def create_agent():
     response = requests.post(
-        "https://api.elevenlabs.io/v1/convai/agents/create",  # Corrected API endpoint
+        "https://api.elevenlabs.io/v1/convai/agents/create",
         headers={
             "xi-api-key": ELEVENLABS_API_KEY,
             "Content-Type": "application/json",
@@ -20,7 +27,7 @@ def create_agent():
             "conversation_config": {
                 "agent": {
                     "prompt": {
-                        "prompt": "You are a financial assistant using Gemini to provide real-time stock data and market analysis. Your capabilities include fetching stock prices, historical trends, market summaries, and related news.",
+                        "prompt": "You are a financial assistant using Alpha Vantage to provide real-time stock data and market analysis...",
                         "llm": "gemini-1.5-pro",
                         "temperature": 0.7,
                         "max_tokens": 512,
@@ -30,57 +37,30 @@ def create_agent():
                                 "name": "get_stock_price",
                                 "description": "Fetches real-time stock prices and company details.",
                                 "api_schema": {
-                                    "url": "https://query2.finance.yahoo.com/v7/finance/quote",
-                                    "method": "GET",
-                                    "query_params_schema": {
-                                        "properties": {
-                                            "symbol": {"type": "string", "description": "Stock symbol (e.g., AAPL)"}
-                                        },
-                                        "required": ["symbol"]
-                                    }
-                                }
-                            },
-                            {
-                                "type": "webhook",
-                                "name": "get_stock_history",
-                                "description": "Retrieves historical stock data for analysis.",
-                                "api_schema": {
-                                    "url": "https://query1.finance.yahoo.com/v8/finance/chart/",
-                                    "method": "GET",
-                                    "query_params_schema": {
-                                        "properties": {
-                                            "symbol": {"type": "string", "description": "Stock symbol"},
-                                            "period": {"type": "string", "description": "Time period (1d, 5d, 1mo, etc.)"}
-                                        },
-                                        "required": ["symbol", "period"]
-                                    }
-                                }
-                            },
-                            {
-                                "type": "webhook",
-                                "name": "get_market_summary",
-                                "description": "Provides a summary of major market indices.",
-                                "api_schema": {
-                                    "url": "https://finance.yahoo.com/",
-                                    "method": "GET"
-                                }
-                            },
-                            {
-                                "type": "webhook",
-                                "name": "search_news",
-                                "description": "Finds recent news and analysis for stocks.",
-                                "api_schema": {
                                     "url": "https://www.alphavantage.co/query",
                                     "method": "GET",
                                     "query_params_schema": {
                                         "properties": {
-                                            "query": {"type": "string", "description": "Search term"},
-                                            "num_results": {"type": "integer", "description": "Number of results (1-10)"}
+                                            "function": {
+                                                "type": "string",
+                                                "description": "The API function to call.",
+                                                "enum": ["GLOBAL_QUOTE"]
+                                            },
+                                            "symbol": {
+                                                "type": "string",
+                                                "description": "Stock symbol (e.g., AAPL)"
+                                            },
+                                            "apikey": {
+                                                "type": "string",
+                                                "description": "Your Alpha Vantage API key",
+                                                "default": ALPHA_VANTAGE_API_KEY
+                                            }
                                         },
-                                        "required": ["query"]
+                                        "required": ["function", "symbol", "apikey"]
                                     }
                                 }
-                            }
+                            },
+                            # Additional tools can be defined here
                         ]
                     },
                     "first_message": "Hi! I can provide real-time stock prices, historical trends, and market analysis. What do you need help with?",
