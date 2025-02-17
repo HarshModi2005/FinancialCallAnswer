@@ -4,6 +4,7 @@ import requests
 ELEVENLABS_API_KEY = "sk_0520cc9cadbba16670ec7525304c16614bf2f030bd52424d"  # Replace with your actual API key
 ALPHA_VANTAGE_API_KEY = "5PBGETDT1CIC2MY1"  # Replace with your actual Alpha Vantage API key
 
+
 # Ensure the API key is available
 if not ELEVENLABS_API_KEY or not ALPHA_VANTAGE_API_KEY:
     raise ValueError("API Key is missing. Set ELEVENLABS_API_KEY and ALPHA_VANTAGE_API_KEY as environment variables.")
@@ -46,6 +47,20 @@ def create_stock_price_agent():
                     },
                     "first_message": "Hi! I can fetch real-time stock prices. Which stock symbol do you need?",
                     "language": "en"
+                },
+                "asr": {
+                    "quality": "high",
+                    "provider": "elevenlabs",
+                    "user_input_audio_format": "ulaw_8000",
+                    "keywords": []
+                },
+                "tts": {
+                    "model_id": "eleven_turbo_v2",
+                    "voice_id": "cjVigY5qzO86Huf0OWal",
+                    "agent_output_audio_format": "ulaw_8000",
+                    "optimize_streaming_latency": 3,
+                    "stability": 0.5,
+                    "similarity_boost": 0.8
                 }
             }
         },
