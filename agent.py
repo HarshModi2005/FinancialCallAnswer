@@ -4,10 +4,9 @@ import requests
 ELEVENLABS_API_KEY = "sk_0520cc9cadbba16670ec7525304c16614bf2f030bd52424d"  # Replace with your actual API key
 ALPHA_VANTAGE_API_KEY = "5PBGETDT1CIC2MY1"  # Replace with your actual Alpha Vantage API key
 
-
 # Ensure the API key is available
 if not ELEVENLABS_API_KEY or not ALPHA_VANTAGE_API_KEY:
-    raise ValueError("API Key is missing. Set ELEVENLABS_API_KEY and ALPHA_VANTAGE_API_KEY as environment variables.")
+    raise ValueError("API Key is missing. Set ELEVENLABS_API_KEY and ALPHA_VANTAGE_API_KEY.")
 
 def create_stock_price_agent():
     response = requests.post(
@@ -39,7 +38,10 @@ def create_stock_price_agent():
                                             "symbol": {"type": "string", "description": "Stock symbol (e.g., AAPL)"},
                                             "apikey": {"type": "string", "description": "Alpha Vantage API key", "default": ALPHA_VANTAGE_API_KEY}
                                         },
-                                        "required": ["function", "symbol"]
+                                        "required": ["function", "symbol", "apikey"]
+                                    },
+                                    "fixed_query_params": {
+                                        "apikey": ALPHA_VANTAGE_API_KEY  # Explicitly set API key
                                     }
                                 }
                             }
