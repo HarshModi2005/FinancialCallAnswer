@@ -30,7 +30,7 @@ def create_agent():
                                 "name": "get_stock_price",
                                 "description": "Fetches real-time stock prices and company details.",
                                 "api_schema": {
-                                    "url": "https://finance.yahoo.com/",
+                                    "url": "https://query2.finance.yahoo.com/v7/finance/quote",
                                     "method": "GET",
                                     "query_params_schema": {
                                         "properties": {
@@ -45,7 +45,7 @@ def create_agent():
                                 "name": "get_stock_history",
                                 "description": "Retrieves historical stock data for analysis.",
                                 "api_schema": {
-                                    "url": "https://finance.yahoo.com/",
+                                    "url": "https://query1.finance.yahoo.com/v8/finance/chart/",
                                     "method": "GET",
                                     "query_params_schema": {
                                         "properties": {
@@ -70,7 +70,7 @@ def create_agent():
                                 "name": "search_news",
                                 "description": "Finds recent news and analysis for stocks.",
                                 "api_schema": {
-                                    "url": "https://www.moneycontrol.com/",
+                                    "url": "https://www.alphavantage.co/query",
                                     "method": "GET",
                                     "query_params_schema": {
                                         "properties": {
