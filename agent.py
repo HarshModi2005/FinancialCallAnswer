@@ -30,7 +30,7 @@ def create_agent():
                                 "name": "get_stock_price",
                                 "description": "Fetches real-time stock prices and company details.",
                                 "api_schema": {
-                                    "url": "https://11-labs-stock.vercel.app/api/stock/price",
+                                    "url": "https://finance.yahoo.com/",
                                     "method": "GET",
                                     "query_params_schema": {
                                         "properties": {
@@ -45,7 +45,7 @@ def create_agent():
                                 "name": "get_stock_history",
                                 "description": "Retrieves historical stock data for analysis.",
                                 "api_schema": {
-                                    "url": "https://11-labs-stock.vercel.app/api/stock/history",
+                                    "url": "https://finance.yahoo.com/",
                                     "method": "GET",
                                     "query_params_schema": {
                                         "properties": {
@@ -61,7 +61,7 @@ def create_agent():
                                 "name": "get_market_summary",
                                 "description": "Provides a summary of major market indices.",
                                 "api_schema": {
-                                    "url": "https://11-labs-stock.vercel.app/api/stock/market-summary",
+                                    "url": "https://finance.yahoo.com/",
                                     "method": "GET"
                                 }
                             },
@@ -70,7 +70,7 @@ def create_agent():
                                 "name": "search_news",
                                 "description": "Finds recent news and analysis for stocks.",
                                 "api_schema": {
-                                    "url": "https://11-labs-stock.vercel.app/api/search",
+                                    "url": "https://www.moneycontrol.com/",
                                     "method": "GET",
                                     "query_params_schema": {
                                         "properties": {
@@ -89,13 +89,13 @@ def create_agent():
                 "asr": {
                     "quality": "high",
                     "provider": "elevenlabs",
-                    "user_input_audio_format": "pcm_8000",
+                    "user_input_audio_format": "ulaw_8000",
                     "keywords": []
                 },
                 "tts": {
                     "model_id": "eleven_turbo_v2",
                     "voice_id": "cjVigY5qzO86Huf0OWal",
-                    "agent_output_audio_format": "pcm_8000",
+                    "agent_output_audio_format": "ulaw_8000",
                     "optimize_streaming_latency": 3,
                     "stability": 0.5,
                     "similarity_boost": 0.8
