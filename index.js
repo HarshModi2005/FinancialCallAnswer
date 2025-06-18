@@ -4,17 +4,6 @@ import fastifyFormBody from "@fastify/formbody";
 import fastifyWs from "@fastify/websocket";
 import { registerInboundRoutes } from './inbound-calls.js';
 
-import Pusher from "pusher";
-
-const pusher = new Pusher({
-  appId: "1943029",
-  key: "0e35b2b61a995822dd68",
-  secret: "208b7d83b141bdff87f2",
-  cluster: "us2",
-  useTLS: true
-});
-
-
 // Load environment variables from .env file
 dotenv.config();
 
@@ -30,7 +19,7 @@ const PORT = process.env.PORT || 8000;
 
 // Root route for health check
 fastify.get("/", async (_, reply) => {
-  reply.send({ message: "Server is running" });
+  reply.send({ message: "Financial Call Answer System is running" });
 });
 
 // Start the Fastify server
@@ -41,7 +30,7 @@ const start = async () => {
 
     // Start listening
     await fastify.listen({ port: PORT, host: '0.0.0.0' });
-    console.log(`[Server] Listening on port ${PORT}`);
+    console.log(`[Server] Financial Call Answer System listening on port ${PORT}`);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);

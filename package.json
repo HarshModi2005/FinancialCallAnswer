@@ -1,29 +1,21 @@
 {
-  "name": "nodejs",
+  "name": "financial-call-answer",
   "version": "1.0.0",
-  "description": "",
+  "description": "AI-powered financial call answering system using Twilio and ElevenLabs",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": ["twilio", "elevenlabs", "ai", "voice", "financial", "call-center"],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@11labs/client": "^0.0.4",
     "@fastify/formbody": "^8.0.1",
     "@fastify/websocket": "^11.0.1",
-    "@types/node": "^18.0.6",
-    "axios": "^1.7.9",
     "dotenv": "^16.4.7",
-    "elevenlabs": "^0.18.1",
     "fastify": "^5.1.0",
-    "ngrok": "^5.0.0-beta.2",
-    "node-fetch": "^3.3.2",
-    "pusher": "^5.2.0",
-    "twilio": "^5.3.7",
     "ws": "^8.18.0"
   }
 }
